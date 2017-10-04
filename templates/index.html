@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Work-Life Balance Prediction">
+    <meta name="author" content="Jeremy Smith">
+
+    <title>Work-Life Prediction App</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <!-- Custom CSS and fonts-->
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/style.css') }}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Arimo">
+
+    {{ js_resources|indent(4)|safe }}
+    {{ css_resources|indent(4)|safe }}
+    {{ plot_script|indent(4)|safe }}
+  
+  </head>
+
+  <body>
+    <div class="container">
+      <div id="sidebar"></div>
+      <div id="graphic"></div>
+    </div>
+
+    <!-- Bootstrap and jQuery core JavaScript-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!-- Main JS -->
+    <script src="{{ url_for('static', filename='main.js') }}"></script>
+  </body>
+</html>
