@@ -13,16 +13,11 @@
     <!-- Custom CSS and fonts-->
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/style.css') }}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Arimo">
-
-    {{ js_resources|indent(4)|safe }}
-    {{ css_resources|indent(4)|safe }}
-    {{ plot_script|indent(4)|safe }}
   
   </head>
 
   <body>
     <div class="container">
-      <div id="sidebar"></div>
       <div id="graphic"></div>
     </div>
 
