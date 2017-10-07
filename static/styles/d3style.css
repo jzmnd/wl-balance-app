@@ -1,0 +1,9 @@
+#primarysvg {
+  text-anchor: middle;
+  font-size: 10px;
+}
+
+circle:hover {
+  stroke: black;
+  stroke-width: 3px;
+}

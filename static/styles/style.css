@@ -8,6 +8,16 @@ h4 {
   color: #aaa;
 }
 
-input {
-    text-transform: uppercase;
+.row.content {
+    height: 550px;
+}
+
+.sidenav {
+  margin-top: 20px;
+  height: 100%;
+}
+
+#container{
+    text-align:center;
+    width: 100%;
 }
