@@ -2,7 +2,14 @@
 <html lang='en'>
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Work-Life Clustering Bubble App">
+    <meta name="author" content="Jeremy Smith">
+
     <title>Work-Life Clustering Bubble App</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <!-- Custom CSS and fonts-->
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/style.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/d3style.css') }}">
@@ -10,50 +17,49 @@
   </head>
 
   <body>
-    <h2>Clustering of Activity Times</h2>
+    <div class="container-fluid">
+      <h2>Clustering of Activity Times</h2>
 
-    <div id="charts">
-      <div id="bubbleContainer">
-        
-        <div id="clusterNames" class="btn-group btn-info top-btn" data-toggle="buttons">
-          <label class="btn active clusterBtn" id="cluster1">
-            <input type="radio" name="options">Cluster 1
-          </label>
-          <label class="btn clusterBtn" id="cluster2">
-            <input type="radio" name="options">Cluster 2
-          </label>
-          <label class="btn clusterBtn" id="cluster3">
-            <input type="radio" name="options">Cluster 3
-          </label>
-          <label class="btn clusterBtn" id="cluster4">
-            <input type="radio" name="options">Cluster 4
-          </label>
-          <label class="btn clusterBtn" id="cluster5">
-            <input type="radio" name="options">Cluster 5
-          </label>
-          <label class="btn clusterBtn" id="cluster6">
-            <input type="radio" name="options">Cluster 6
-          </label>
-          <label class="btn clusterBtn" id="cluster7">
-            <input type="radio" name="options">Cluster 7
-          </label>
-        </div>
-
-        <div id="dayType" class="btn-group btn-default top-btn" data-toggle="buttons">
-          <label class="btn active dayBtn" id="weday">
-            <input type="radio" name="options">Weekday
-          </label>
-          <label class="btn dayBtn" id="wehol">
-            <input type="radio" name="options">Weekend/Holiday
-          </label>
-        </div>
-
-        <div id="bubbleChart"></div>
+      <div id="clusterNames" class="btn-group" data-toggle="buttons">
+        <label class="btn btn-default active clusterBtn" id="cluster0">
+          <input type="radio" name="coptions">Cluster 1
+        </label>
+        <label class="btn btn-default clusterBtn" id="cluster1">
+          <input type="radio" name="coptions">Cluster 2
+        </label>
+        <label class="btn btn-default clusterBtn" id="cluster2">
+          <input type="radio" name="coptions">Cluster 3
+        </label>
+        <label class="btn btn-default clusterBtn" id="cluster3">
+          <input type="radio" name="coptions">Cluster 4
+        </label>
+        <label class="btn btn-default clusterBtn" id="cluster4">
+          <input type="radio" name="coptions">Cluster 5
+        </label>
+        <label class="btn btn-default clusterBtn" id="cluster5">
+          <input type="radio" name="coptions">Cluster 6
+        </label>
+        <label class="btn btn-default clusterBtn" id="cluster6">
+          <input type="radio" name="coptions">Cluster 7
+        </label>
       </div>
+
+      <div id="dayType" class="btn-group" data-toggle="buttons">
+        <label class="btn btn-default active dayBtn" id="weday">
+          <input type="radio" name="dayoptions">Weekday
+        </label>
+        <label class="btn btn-default dayBtn" id="wehol">
+          <input type="radio" name="dayoptions">Weekend/Holiday
+        </label>
+      </div>
+
+      <div id="bubbleChart"></div>
+
     </div>
 
-    <!-- JQuery JS-->
+    <!-- Bootstrap and jQuery core JavaScript-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <!-- d3 JS -->
     <script src="https://d3js.org/d3.v4.min.js"></script>
     <!-- Main JS-->

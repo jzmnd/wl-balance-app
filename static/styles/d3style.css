@@ -1,9 +1,16 @@
 #primarysvg {
-  text-anchor: middle;
-  font-size: 10px;
+  text-anchor: middle; 
 }
 
-circle:hover {
-  stroke: black;
-  stroke-width: 3px;
+.node tspan {
+  font-size: 12px;
+  fill: white;
+}
+
+.node circle {
+  opacity: 0.8;
+}
+
+.node circle:hover {
+  opacity: 1.0;
 }
