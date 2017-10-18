@@ -22,18 +22,41 @@ PORT = int(os.environ.get('PORT', 33507))
 
 @app.route('/')
 def index():
-
     # Render html template
     html = render_template('index.html')
-
     return html
 
 
-@app.route('/data')
-def data():
-    # returns data here and makes json object
-    return jsonify(get_data())
+# @app.route('/data')
+# def data():
+#     # returns data here and makes json object
+#     return jsonify(get_data())
 
+
+@app.route('/cluster')
+def cluster():
+    # Render html template
+    html = render_template('cluster.html')
+    return html
+
+
+@app.route('/model')
+def model():
+    # Render html template
+    html = render_template('model.html')
+    return html
+
+
+@app.route('/about')
+def about():
+    # Render html template
+    html = render_template('about.html')
+    return html
+
+
+@app.errorhandler(404)
+def page_not_found(err):
+    return render_template('404.html'), 404
 
 
 
