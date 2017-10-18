@@ -52,12 +52,162 @@
         
         <div class="col-sm-10">
           <div class="well">
-            <h2>Predictive Modeling of Actvity Times</h2>
+            <h2>Predictive Modeling of Activity Times</h2>
             <h4>Jeremy Smith</h4>
             <p>
               Machine learning can be used to build a predictive model for the work-life balance metrics.
-
             </p>
+          </div>
+
+          <div class="well">
+            <form action="/model/data" method="get">
+              <h3>Enter your infomation here</h3>
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label for="teage">Age</label>
+                  <input type="text" class="form-control" id="teage" name="teage" required>
+                </div>
+
+                <div class="form-group">
+                  <label for="tesex">Sex</label>
+                  <select class="form-control" id="tesex" name="tesex">
+                    <option disabled selected value>Select an option</option>
+                    <option value="1">Male</option>
+                    <option value="2">Female</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="ptdtrace">Race</label>
+                  <select class="form-control" id="ptdtrace" name="ptdtrace">
+                    <option disabled selected value>Select an option</option>
+                    {% for c in codedicts.ptdtrace %}
+                      <option value="{{ c.value }}">{{ c.name }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="trsppres">Presence of spouse or partner</label>
+                  <select class="form-control" id="trsppres" name="trsppres">
+                    <option disabled selected value>Select an option</option>
+                    <option value="1">Spouse present</option>
+                    <option value="2">Unmarried partner present</option>
+                    <option value="3">No spouse or unmarried partner present</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="tespempnot">Employment status of spouse or partner</label>
+                  <select class="form-control" id="tespempnot" name="tespempnot">
+                    <option disabled selected value>Select an option</option>
+                    <option value="nan">NA</option>
+                    <option value="1">Employed</option>
+                    <option value="2">Not employed</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="gemetsta">Metropolitan status</label>
+                  <select class="form-control" id="gemetsta" name="gemetsta">
+                    <option disabled selected value>Select an option</option>
+                    <option value="1">Metropolitan</option>
+                    <option value="2">Non-metropolitan</option>
+                    <option value="3">Not identified</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="gestfips">Location (State)</label>
+                  <select class="form-control" id="gestfips" name="gestfips">
+                    <option disabled selected value>Select an option</option>
+                    {% for c in codedicts.gestfips %}
+                      <option value="{{ c.value }}">{{ c.name }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="teschenr">Currently in education?</label>
+                  <select class="form-control" id="teschenr" name="teschenr">
+                    <option disabled selected value>Select an option</option>
+                    <option value="1">Yes</option>
+                    <option value="2">No</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label for="telfs">Labor force status</label>
+                  <select class="form-control" id="telfs" name="telfs">
+                    <option disabled selected value>Select an option</option>
+                    {% for c in codedicts.telfs %}
+                      <option value="{{ c.value }}">{{ c.name }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="trdtocc1">Occupation</label>
+                  <select class="form-control" id="trdtocc1" name="trdtocc1">
+                    <option disabled selected value>Select an option</option>
+                    <option value="nan">NA</option>
+                    {% for c in codedicts.trdtocc1 %}
+                      <option value="{{ c.value }}">{{ c.name }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="teio1cow">Class of worker</label>
+                  <select class="form-control" id="teio1cow" name="teio1cow">
+                    <option disabled selected value>Select an option</option>
+                    <option value="nan">NA</option>
+                    {% for c in codedicts.teio1cow %}
+                      <option value="{{ c.value }}">{{ c.name }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="trdpftpt">Full/part time</label>
+                  <select class="form-control" id="trdpftpt" name="trdpftpt">
+                    <option disabled selected value>Select an option</option>
+                    <option value="nan">NA</option>
+                    <option value="1">Full time</option>
+                    <option value="2">Part time</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="trernwa">Weekly earnings (USD)</label>
+                  <input type="text" class="form-control" id="trernwa" name="trernwa" required>
+                </div>
+
+                <div class="form-group">
+                  <label for="peeduca">Highest education level</label>
+                  <select class="form-control" id="peeduca" name="peeduca">
+                    <option disabled selected value>Select an option</option>
+                    {% for c in codedicts.peeduca %}
+                      <option value="{{ c.value }}">{{ c.name }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="trchildnum">Number of children</label>
+                  <input type="text" class="form-control" id="trchildnum" name="trchildnum" required>
+                </div>
+
+                <div class="form-group">
+                  <label for="trnumhou">Number of people in household</label>
+                  <input type="text" class="form-control" id="trnumhou" name="trnumhou" required>
+                </div>
+              </div>
+
+              <button type="submit" class="btn btn-info">Submit</button>
+            </form>
           </div>
 
         </div>

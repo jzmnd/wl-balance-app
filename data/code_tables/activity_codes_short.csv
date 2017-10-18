@@ -1,0 +1,34 @@
+CODE;SHORTNAME
+010101;Sleeping
+0102;Grooming
+0103;Self-care
+050201;Socializing (part of job)
+050203;Exercise (part of job)
+1101;Eating and Drinking
+1201;Socializing and Communicating
+1202;Attending Social Events
+1203;Relaxing and Leisure
+1204;Arts and Entertainment
+1301;Sports and Exercise
+1302;Attending Sports Events
+14;Religious Activities
+05;Work amd Work-Related Activities
+0501;Working
+0504;Job Interviewing
+1805;Travel (part of job)
+0201;Housework
+0202;Food and Drink Preparation
+0203;Interior Maintenance
+0204;Exterior Maintenance
+0209;Household Management
+0301;Caring For Children
+0302;Activities with Children's Education
+0303;Activities with Children's Health
+0304;Caring for Household Adults
+0305;Helping Household Adults
+0802;Banking
+0803;Legal Services
+06;Education
+07;Consumer Purchases
+09;Household Services (not done by self)
+18;Traveling
