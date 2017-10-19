@@ -17,6 +17,7 @@
     <!-- Bokeh resources -->
     {{ js_resources|indent(4)|safe }}
     {{ css_resources|indent(4)|safe }}
+    {{ plot_script|indent(4)|safe }}
 
   </head>
 
@@ -58,16 +59,27 @@
             <h2>Predictive Modeling of Activity Times</h2>
             <h4>Jeremy Smith</h4>
             <p>
-              Machine learning can be used to build a predictive model for the work-life balance metrics.
+              Machine learning can be used to build a predictive model for work-life balance metrics.
+              Here we use a combination of linear Ridge regression and a Random Forest regressor to predict the scores for the continuous metrics and an SVM classifier for the categorical metrics.
+              The input to the model are 16 demographic indicators such as age, occupation etc.
             </p>
           </div>
 
           <a href="{{ url_for('model') }}" class="btn btn-info" role="button">Return</a>
 
-          <div id="metric1Plot"></div>
-          <div id="metric2Plot"></div>
-          <div id="metric3Plot"></div>
-          <div id="metric4Plot"></div>
+          <div class="pltcontainer">
+            <div id="metric1Plot">
+            </div>
+            <div id="metric2Plot">
+              {{ plot_div|indent(12)|safe }}
+            </div>
+            <div id="metric3Plot">
+            </div>
+            <div id="metric4Plot">
+            </div>
+            <div id="metric5Plot">
+            </div>
+          </div>
 
           <div class="well">
             <h3>Predicted metric scores</h3>

@@ -17,7 +17,6 @@ h4 {
   height: 100%;
 }
 
-#container-fluid{
-    text-align:center;
-    width: 100%;
+.pltcontainer {
+    width: 95%;
 }

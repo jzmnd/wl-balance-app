@@ -12,28 +12,14 @@ from bokeh.embed import components
 from bokeh.resources import INLINE
 from bokeh.util.string import encode_utf8
 from flask import Flask, render_template, request
-from libs.predictionlib import get_data
-from libs.codeslib import *
+from libs.predictionlib import getData, histogramPlot
+from libs.codeslib import CODEDICTS, FEATURES
 import pandas as pd
 
 
 app = Flask(__name__)
 
 PORT = int(os.environ.get('PORT', 33507))
-
-# Create code dictionaries
-dfactcodes, dfeducodes, dfinccodes, dfagecodes, dfempcodes, \
-    dfindcodes, dfraccodes, dfloccodes, dfwhocodes, dfdemocodes = load_codes()
-
-CODEDICTS = {}
-CODEDICTS['ptdtrace'] = [{'name': n, 'value': v} for n, v in zip(dfraccodes.NAME.tolist()[:-5], dfraccodes.CODE.tolist()[:-5])]
-CODEDICTS['gestfips'] = [{'name': n, 'value': v} for n, v in zip(dfloccodes.NAME.tolist(), dfloccodes.CODE.tolist())]
-CODEDICTS['telfs'] =    [{'name': n, 'value': v} for n, v in zip(dfempcodes.NAME.tolist(), dfempcodes.CODE.tolist())]
-CODEDICTS['trdtocc1'] = [{'name': n, 'value': v} for n, v in zip(dfindcodes[dfindcodes.FLAG == 'TRDTOCC1'].NAME.tolist(),
-                                                                 dfindcodes[dfindcodes.FLAG == 'TRDTOCC1'].CODE.tolist())]
-CODEDICTS['teio1cow'] = [{'name': n, 'value': v} for n, v in zip(dfindcodes[dfindcodes.FLAG == 'TEIO1COW'].NAME.tolist(),
-                                                                 dfindcodes[dfindcodes.FLAG == 'TEIO1COW'].CODE.tolist())]
-CODEDICTS['peeduca'] = [ {'name': n, 'value': v} for n, v in zip(dfeducodes.NAME.tolist(), dfeducodes.CODE.tolist())]
 
 
 @app.route('/')
@@ -59,11 +45,23 @@ def cluster():
 def model(demoinfo=None):
 
     if demoinfo:
-        print request.args
+
+        mm = 'metric2'
+        demo_input = request.args
+
+        #prediction = predictScore(mm, demo_input)
+        prediction = 0.55
+
+        metric_data_weday, metric_data_wehol = getData(mm)
+
+        fig = histogramPlot(metric_data_weday, title=mm, bins=50, prediction=prediction)
+
+        script, div = components(fig)
         js_resources = INLINE.render_js()
         css_resources = INLINE.render_css()
         html = render_template('model-plots.html', codedicts=CODEDICTS,
-                               js_resources=js_resources, css_resources=css_resources)
+                               js_resources=js_resources, css_resources=css_resources,
+                               plot_script=script, plot_div=div)
 
     else:
         html = render_template('model.html', codedicts=CODEDICTS)

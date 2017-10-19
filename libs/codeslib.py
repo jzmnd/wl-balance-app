@@ -32,7 +32,7 @@ CATFEATURES = ['GEMETSTA', 'GESTFIPS',
 NUMCATS = [4, 57, 6, 3, 4, 3, 3, 3, 27, 7, 23, 14, 9, 4]
 
 
-def load_codes(loc="data", loc_codes="code_tables"):
+def load_codes(loc="static/data", loc_codes="code_tables"):
 
     # Import activity code dictionary csv to df
     dfactcodes = pd.read_csv(os.path.join(loc, loc_codes, "activity_codes.csv"),
@@ -108,3 +108,18 @@ def load_codes(loc="data", loc_codes="code_tables"):
 
     return [dfactcodes, dfeducodes, dfinccodes, dfagecodes, dfempcodes,
             dfindcodes, dfraccodes, dfloccodes, dfwhocodes, dfdemocodes]
+
+
+# Create code dictionaries
+dfactcodes, dfeducodes, dfinccodes, dfagecodes, dfempcodes, \
+    dfindcodes, dfraccodes, dfloccodes, dfwhocodes, dfdemocodes = load_codes()
+
+CODEDICTS = {}
+CODEDICTS['ptdtrace'] = [{'name': n, 'value': v} for n, v in zip(dfraccodes.NAME.tolist()[:-5], dfraccodes.CODE.tolist()[:-5])]
+CODEDICTS['gestfips'] = [{'name': n, 'value': v} for n, v in zip(dfloccodes.NAME.tolist(), dfloccodes.CODE.tolist())]
+CODEDICTS['telfs'] =    [{'name': n, 'value': v} for n, v in zip(dfempcodes.NAME.tolist(), dfempcodes.CODE.tolist())]
+CODEDICTS['trdtocc1'] = [{'name': n, 'value': v} for n, v in zip(dfindcodes[dfindcodes.FLAG == 'TRDTOCC1'].NAME.tolist(),
+                                                                 dfindcodes[dfindcodes.FLAG == 'TRDTOCC1'].CODE.tolist())]
+CODEDICTS['teio1cow'] = [{'name': n, 'value': v} for n, v in zip(dfindcodes[dfindcodes.FLAG == 'TEIO1COW'].NAME.tolist(),
+                                                                 dfindcodes[dfindcodes.FLAG == 'TEIO1COW'].CODE.tolist())]
+CODEDICTS['peeduca'] = [ {'name': n, 'value': v} for n, v in zip(dfeducodes.NAME.tolist(), dfeducodes.CODE.tolist())]

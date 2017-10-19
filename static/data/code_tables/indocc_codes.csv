@@ -1,0 +1,43 @@
+FLAG;CODE;NAME
+TRDTOCC1;1;Management occupations
+TRDTOCC1;2;Business and financial operations occupations
+TRDTOCC1;3;Computer and mathematical science occupations
+TRDTOCC1;4;Architecture and engineering occupations
+TRDTOCC1;5;Life, physical, and social science occupations
+TRDTOCC1;6;Community and social service occupations
+TRDTOCC1;7;Legal occupations
+TRDTOCC1;8;Education, training, and library occupations
+TRDTOCC1;9;Arts, design, entertainment, sports, and media occupations
+TRDTOCC1;10;Healthcare practitioner and technical occupations
+TRDTOCC1;11;Healthcare support occupations
+TRDTOCC1;12;Protective service occupations
+TRDTOCC1;13;Food preparation and serving related occupations
+TRDTOCC1;14;Building and grounds cleaning and maintenance occupations
+TRDTOCC1;15;Personal care and service occupations
+TRDTOCC1;16;Sales and related occupations
+TRDTOCC1;17;Office and administrative support occupations
+TRDTOCC1;18;Farming, fishing, and forestry occupations
+TRDTOCC1;19;Construction and extraction occupations
+TRDTOCC1;20;Installation, maintenance, and repair occupations
+TRDTOCC1;21;Production occupations
+TRDTOCC1;22;Transportation and material moving occupations
+TRMJIND1;1;Agriculture, forestry, fishing, and hunting
+TRMJIND1;2;Mining
+TRMJIND1;3;Construction
+TRMJIND1;4;Manufacturing
+TRMJIND1;5;Wholesale and retail trade
+TRMJIND1;6;Transportation and utilities
+TRMJIND1;7;Information
+TRMJIND1;8;Financial activities
+TRMJIND1;9;Professional and business services 10 Educational and health services
+TRMJIND1;11;Leisure and hospitality
+TRMJIND1;12;Other services
+TRMJIND1;13;Public administration
+TEIO1COW;1;Government, federal
+TEIO1COW;2;Government, state
+TEIO1COW;3;Government, local
+TEIO1COW;4;Private, for profit
+TEIO1COW;5;Private, nonprofit
+TEIO1COW;6;Self-employed, incorporated
+TEIO1COW;7;Self-employed, unincorporated
+TEIO1COW;8;Without pay
