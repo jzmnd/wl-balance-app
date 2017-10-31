@@ -1,37 +1,25 @@
 # -*- coding: utf-8 -*-
 """
-app.py
-Flask app for W-L balance prediction
+views.py for W-L balance prediction app
 
-Created by Jeremy Smith on 2017-10-04
+Created by Jeremy Smith on 2017-10-30
 """
 
-import os
 from bokeh.plotting import figure
 from bokeh.embed import components
 from bokeh.resources import INLINE
 from bokeh.util.string import encode_utf8
-from flask import Flask, render_template, request
-from libs.predictionlib import getData, histogramPlot
-from libs.codeslib import CODEDICTS, FEATURES
-import pandas as pd
 
-
-app = Flask(__name__)
-
-PORT = int(os.environ.get('PORT', 33507))
+from app import app
+from flask import render_template, request
+from predictionlib import getData, histogramPlot
+from codeslib import CODEDICTS, FEATURES
 
 
 @app.route('/')
 def index():
     html = render_template('index.html')
     return html
-
-
-# @app.route('/data')
-# def data():
-#     # returns data here and makes json object
-#     return jsonify(get_data())
 
 
 @app.route('/cluster')
@@ -78,7 +66,3 @@ def about():
 @app.errorhandler(404)
 def page_not_found(err):
     return render_template('404.html'), 404
-
-
-if __name__ == '__main__':
-    app.run(port=PORT)

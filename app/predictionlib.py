@@ -14,9 +14,9 @@ import pandas as pd
 
 def getData(m):
     # Import metric data
-    dfweday = pd.read_csv(os.path.join('static', 'data', "weday_metrics.csv"),
+    dfweday = pd.read_csv(os.path.join('app', 'static', 'data', "weday_metrics.csv"),
                              index_col=False)
-    dfwehol = pd.read_csv(os.path.join('static', 'data', "wehol_metrics.csv"),
+    dfwehol = pd.read_csv(os.path.join('app', 'static', 'data', "wehol_metrics.csv"),
                              index_col=False)
 
     return dfweday[m], dfwehol[m]

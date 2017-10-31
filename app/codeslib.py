@@ -32,7 +32,7 @@ CATFEATURES = ['GEMETSTA', 'GESTFIPS',
 NUMCATS = [4, 57, 6, 3, 4, 3, 3, 3, 27, 7, 23, 14, 9, 4]
 
 
-def load_codes(loc="static/data", loc_codes="code_tables"):
+def load_codes(loc, loc_codes="code_tables"):
 
     # Import activity code dictionary csv to df
     dfactcodes = pd.read_csv(os.path.join(loc, loc_codes, "activity_codes.csv"),
@@ -112,7 +112,7 @@ def load_codes(loc="static/data", loc_codes="code_tables"):
 
 # Create code dictionaries
 dfactcodes, dfeducodes, dfinccodes, dfagecodes, dfempcodes, \
-    dfindcodes, dfraccodes, dfloccodes, dfwhocodes, dfdemocodes = load_codes()
+    dfindcodes, dfraccodes, dfloccodes, dfwhocodes, dfdemocodes = load_codes("app/static/data")
 
 CODEDICTS = {}
 CODEDICTS['ptdtrace'] = [{'name': n, 'value': v} for n, v in zip(dfraccodes.NAME.tolist()[:-5], dfraccodes.CODE.tolist()[:-5])]
