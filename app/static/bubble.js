@@ -3,8 +3,8 @@
 // Constants
 var width = 700;
 var height = 700;
-var csv_weday = "static/data/weday_result.csv";
-var csv_wehol = "static/data/wehol_result.csv";
+var csv_weday = "static/data/weday_clusterresult.csv";
+var csv_wehol = "static/data/wehol_clusterresult.csv";
 var cutoff = 0.08;
 
 // Defaults

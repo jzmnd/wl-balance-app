@@ -9,6 +9,12 @@ Created by Jeremy Smith on 2017-10-04
 import os
 import pandas as pd
 
+METRICNAMES = {1: "Weighted difference between life actvities and paid work activities",
+               2: "Weighted difference between life actvities and unpaid work activities",
+               3: "Percentage of day spent on personal care",
+               4: "Percentage of day spent on leisure/socializing",
+               5: "More than 9 hours of work in the day?",
+               6: "More than 4 hours of unpaid work in the day?"}
 
 FEATURES = ['TEAGE', 'TESEX', 'GEMETSTA', 'GESTFIPS',
             'TELFS', 'TRDPFTPT',
@@ -45,7 +51,7 @@ def load_codes(loc, loc_codes="code_tables"):
                              index_col=False,
                              sep=';',
                              dtype={'CODE': str, 'SHORTNAME': str})
-    
+
     dfactcodes = dfactcodes.merge(defactshrt, how='outer', on='CODE')
 
     # Add codepoint level (1, 2 or 3) and sort
@@ -122,4 +128,4 @@ CODEDICTS['trdtocc1'] = [{'name': n, 'value': v} for n, v in zip(dfindcodes[dfin
                                                                  dfindcodes[dfindcodes.FLAG == 'TRDTOCC1'].CODE.tolist())]
 CODEDICTS['teio1cow'] = [{'name': n, 'value': v} for n, v in zip(dfindcodes[dfindcodes.FLAG == 'TEIO1COW'].NAME.tolist(),
                                                                  dfindcodes[dfindcodes.FLAG == 'TEIO1COW'].CODE.tolist())]
-CODEDICTS['peeduca'] = [ {'name': n, 'value': v} for n, v in zip(dfeducodes.NAME.tolist(), dfeducodes.CODE.tolist())]
+CODEDICTS['peeduca'] =  [{'name': n, 'value': v} for n, v in zip(dfeducodes.NAME.tolist(), dfeducodes.CODE.tolist())]

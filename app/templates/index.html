@@ -57,7 +57,7 @@
           <p>
             Work-life balance is inherently linked to stress and stress related illness, as well as a lack of human productivity.
             Therefore the ability to predict a person's propensity to overwork or have a lack of leisure or self-care time etc. is very important.
-            The healthcare industry already uses patient categorization to offer better tailored health services and more personalised care.
+            The healthcare industry already uses patient categorization to offer better tailored health services and more personalized care.
             The addition of work-life balance metrics to this would be extremely useful for improvng this categorization.
           </p>
         </div>
@@ -68,13 +68,13 @@
           </p>
         </div>
 
-        <div class="row">
+        <div class="row equal">
           <div class="col-sm-4">
             <div class="well">
               <h3>Metric 1</h3>
               <p>
-                <em>Weighted ratio of "life actvities" to "work activities".</em><br />
-                This ratio is based on several key activity times related to work-life balance.
+                <em>Weighted difference between "life actvities" and "paid work activities".</em><br />
+                This metric is based on several key activity times related to work-life balance and scaled to be a score between 0 and 1.
               </p>
             </div>
           </div>
@@ -82,8 +82,8 @@
             <div class="well">
               <h3>Metric 2</h3>
               <p>
-                <em>Percentage of day spent on Personal Care.</em><br />
-                Here we simply calculate the activity time as a percentage of the day.
+                <em>Weighted difference between "life actvities" and "unpaid work activities".</em><br />
+                As for Metric 1 but with unpaid rather than paid work activities.
               </p>
             </div>
           </div>
@@ -91,19 +91,20 @@
             <div class="well">
               <h3>Metric 3</h3>
               <p>
-                <em>Percentage of day spent on Leisure and Socializing.</em><br />
-                Here we simply calculate the activity time as a percentage of the day.
+                <em>Percentage of day spent on Personal Care.</em><br />
+                Here we simply calculate the time spent on personal care activities (including sleep) as a percentage of the day.
               </p>
             </div>
           </div>
         </div>
-        <div class="row">
+
+        <div class="row equal">
           <div class="col-sm-4">
             <div class="well">
               <h3>Metric 4</h3>
               <p>
-                <em>More than 10 hours of work in the day?</em><br />
-                This categorizes a respondent by whether they work a "long" day or not.
+                <em>Percentage of day spent on Leisure/Socializing.</em><br />
+                Here we simply calculate time spent on leisure, social or relaxation activities as a percentage of the day.
               </p>
             </div>
           </div>
@@ -111,7 +112,16 @@
             <div class="well">
               <h3>Metric 5</h3>
               <p>
-                <em>More than 3 hours of unpaid work in the day?</em><br />
+                <em>More than 9 hours of work in the day?</em><br />
+                This categorizes a respondent by whether they work a "long" day or not.
+              </p>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="well">
+              <h3>Metric 6</h3>
+              <p>
+                <em>More than 4 hours of unpaid work in the day?</em><br />
                 This categorizes a respondent by whether they spend a significant amount of time on childcare, housework etc.
               </p>
             </div>
@@ -124,7 +134,7 @@
               All data is from the <a href="https://www.bls.gov/tus/">American Time Use Survey (ATUS)</a> that is published by the <a href="https://www.bls.gov/">US Bureau for Labor Statistics</a>. Daily activity times for respondents between 2003 and 2015.
             </small>
           </p>
-        </div>
+        </div>      
 
       </div>
     </div>

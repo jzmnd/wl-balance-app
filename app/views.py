@@ -5,15 +5,11 @@ views.py for W-L balance prediction app
 Created by Jeremy Smith on 2017-10-30
 """
 
-from bokeh.plotting import figure
-from bokeh.embed import components
-from bokeh.resources import INLINE
-from bokeh.util.string import encode_utf8
-
 from app import app
+from bokeh.resources import INLINE
 from flask import render_template, request
-from predictionlib import getData, histogramPlot
-from codeslib import CODEDICTS, FEATURES
+from predictionlib import multiPlotOutput
+from codeslib import CODEDICTS, METRICNAMES
 
 
 @app.route('/')
@@ -34,26 +30,25 @@ def model(demoinfo=None):
 
     if demoinfo:
 
-        mm = 'metric2'
         demo_input = request.args
 
-        #prediction = predictScore(mm, demo_input)
-        prediction = 0.55
+        # prediction = predictScore(demo_input)
+        prediction = [0.55, 0.45, 0.35, 0.25]
 
-        metric_data_weday, metric_data_wehol = getData(mm)
+        plot_weday, plot_wehol = multiPlotOutput(prediction, namedict=METRICNAMES)
 
-        fig = histogramPlot(metric_data_weday, title=mm, bins=50, prediction=prediction)
-
-        script, div = components(fig)
         js_resources = INLINE.render_js()
         css_resources = INLINE.render_css()
         html = render_template('model-plots.html', codedicts=CODEDICTS,
                                js_resources=js_resources, css_resources=css_resources,
-                               plot_script=script, plot_div=div)
+                               plot_script1=plot_weday[0][0], plot_div1=plot_weday[0][1],
+                               plot_script2=plot_weday[1][0], plot_div2=plot_weday[1][1],
+                               plot_script3=plot_weday[2][0], plot_div3=plot_weday[2][1],
+                               plot_script4=plot_weday[3][0], plot_div4=plot_weday[3][1])
 
     else:
         html = render_template('model.html', codedicts=CODEDICTS)
-    
+
     return html
 
 
