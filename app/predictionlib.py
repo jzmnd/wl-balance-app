@@ -6,21 +6,28 @@ Library for W-L balance prediction
 Created by Jeremy Smith on 2017-10-04
 """
 
+import sys
 import os
 from bokeh.plotting import figure
 from bokeh.embed import components
 import numpy as np
 import pandas as pd
+import pickle
+from sklearn.externals import joblib
+from modellib import compute_mse, BaseResEnsembleEstimator, DataFrameSelector, EstimatorTransformer, ImputeNumber
+
+# Requred to unpickle modellib
+sys.path.append('app')
 
 
-def getData(m):
+def getData():
     """Import metric data for all ATUS respondents"""
     dfweday = pd.read_csv(os.path.join('app', 'static', 'data', "weday_metrics.csv"),
                           index_col=False)
     dfwehol = pd.read_csv(os.path.join('app', 'static', 'data', "wehol_metrics.csv"),
                           index_col=False)
 
-    return dfweday[m], dfwehol[m]
+    return dfweday, dfwehol
 
 
 def histogramPlot(data, title=None, bins=20, alpha=1.0, prediction=None):
@@ -42,7 +49,8 @@ def histogramPlot(data, title=None, bins=20, alpha=1.0, prediction=None):
             i = np.digitize(prediction, edges) - 1
         colors[i] = '#337ab7'
 
-    fig.quad(top=hist, bottom=0, left=edges[:-1], right=edges[1:], alpha=alpha, fill_color=colors, line_color=None)
+    fig.quad(top=hist, bottom=0, left=edges[:-1], right=edges[1:],
+             alpha=alpha, fill_color=colors, line_color=None)
 
     return fig
 
@@ -51,15 +59,14 @@ def multiPlotOutput(prediction, namedict=None, n=4):
     """Generate Bokeh components for multiple metric plots"""
     plot_weday = []
     plot_wehol = []
+    metric_data_weday, metric_data_wehol = getData()
 
     for i in xrange(n):
-        metric_data_weday, metric_data_wehol = getData('metric{}'.format(i + 1))
-
-        fig_weday = histogramPlot(metric_data_weday,
+        fig_weday = histogramPlot(metric_data_weday['metric{}'.format(i + 1)],
                                   title="Metric {} - {}".format(i + 1, namedict[i + 1]),
                                   bins=50, prediction=prediction[i])
 
-        fig_wehol = histogramPlot(metric_data_wehol,
+        fig_wehol = histogramPlot(metric_data_wehol['metric{}'.format(i + 1)],
                                   title="Metric {} - {}".format(i + 1, namedict[i + 1]),
                                   bins=50, prediction=prediction[i])
 
@@ -69,12 +76,27 @@ def multiPlotOutput(prediction, namedict=None, n=4):
     return plot_weday, plot_wehol
 
 
-def predictScore(demo_input):
+def predictScore(demo_input, n=6):
     """Get the predicted scores from the sklearn models"""
-    predictions = []
+    predictions = [0.55, 0.45, 0.35, 0.25]
+
+    demo_input_u = {key.upper(): float(val) for key, val in demo_input.items()}
+    demo_input_df = pd.DataFrame(data=demo_input_u, index=[0], dtype=float)
+
+    print demo_input_df
 
 
+    model1 = joblib.load(os.path.join('app', 'static', 'models', "pred_model_atus_FULLEST_metric1_2017-11-01.pkl"))
+    model2 = joblib.load(os.path.join('app', 'static', 'models', "pred_model_atus_FULLEST_metric2_2017-11-01.pkl"))
 
+
+    #print model1.predict(demo_input_df)
+    #print model2.predict(demo_input_df)
+
+
+    # NOTE need to remove ['TESCHLVL' 'TRMJOCGR' 'TRMJIND1' 'TUDIS'] from the models
+
+    # NOTE need to ensure sklearn version is consistent
 
 
 

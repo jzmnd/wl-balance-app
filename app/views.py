@@ -8,7 +8,7 @@ Created by Jeremy Smith on 2017-10-30
 from app import app
 from bokeh.resources import INLINE
 from flask import render_template, request
-from predictionlib import multiPlotOutput
+from predictionlib import multiPlotOutput, predictScore
 from codeslib import CODEDICTS, METRICNAMES
 
 
@@ -29,12 +29,8 @@ def cluster():
 def model(demoinfo=None):
 
     if demoinfo:
-
         demo_input = request.args
-
-        # prediction = predictScore(demo_input)
-        prediction = [0.55, 0.45, 0.35, 0.25]
-
+        prediction = predictScore(demo_input)
         plot_weday, plot_wehol = multiPlotOutput(prediction, namedict=METRICNAMES)
 
         js_resources = INLINE.render_js()
