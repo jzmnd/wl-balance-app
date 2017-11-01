@@ -78,28 +78,20 @@ def multiPlotOutput(prediction, namedict=None, n=4):
 
 def predictScore(demo_input, n=6):
     """Get the predicted scores from the sklearn models"""
-    predictions = [0.55, 0.45, 0.35, 0.25]
+    predictions = [0.5, 0.5, 0.5, 0.5, False, False]
 
     demo_input_u = {key.upper(): float(val) for key, val in demo_input.items()}
     demo_input_df = pd.DataFrame(data=demo_input_u, index=[0], dtype=float)
 
-    print demo_input_df
+    model1 = joblib.load(os.path.join('app', 'static', 'models', "pred_model_atus_FULLEST_weday_metric1_2017-11-01.pkl"))
+    model2 = joblib.load(os.path.join('app', 'static', 'models', "pred_model_atus_FULLEST_weday_metric2_2017-11-01.pkl"))
+    #model3 = joblib.load(os.path.join('app', 'static', 'models', "pred_model_atus_FULLEST_weday_metric3_2017-11-01.pkl"))
+    model4 = joblib.load(os.path.join('app', 'static', 'models', "pred_model_atus_FULLEST_weday_metric4_2017-11-01.pkl"))
 
 
-    model1 = joblib.load(os.path.join('app', 'static', 'models', "pred_model_atus_FULLEST_metric1_2017-11-01.pkl"))
-    model2 = joblib.load(os.path.join('app', 'static', 'models', "pred_model_atus_FULLEST_metric2_2017-11-01.pkl"))
-
-
-    #print model1.predict(demo_input_df)
-    #print model2.predict(demo_input_df)
-
-
-    # NOTE need to remove ['TESCHLVL' 'TRMJOCGR' 'TRMJIND1' 'TUDIS'] from the models
-
-    # NOTE need to ensure sklearn version is consistent
-
-
-
-
+    predictions[0] = model1.predict(demo_input_df)[0]
+    predictions[1] = model2.predict(demo_input_df)[0]
+    #predictions[2] = model3.predict(demo_input_df)[0]
+    predictions[3] = model4.predict(demo_input_df)[0]
 
     return predictions
