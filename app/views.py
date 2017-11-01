@@ -24,6 +24,12 @@ def cluster():
     return html
 
 
+@app.route('/background')
+def background():
+    html = render_template('background.html')
+    return html
+
+
 @app.route('/model')
 @app.route('/model/<demoinfo>')
 def model(demoinfo=None):
