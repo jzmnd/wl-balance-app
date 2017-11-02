@@ -12,7 +12,6 @@ from bokeh.plotting import figure
 from bokeh.embed import components
 import numpy as np
 import pandas as pd
-import pickle
 from sklearn.externals import joblib
 from modellib import compute_mse, BaseResEnsembleEstimator, DataFrameSelector, EstimatorTransformer, ImputeNumber
 
@@ -85,13 +84,12 @@ def predictScore(demo_input, n=6):
 
     model1 = joblib.load(os.path.join('app', 'static', 'models', "pred_model_atus_FULLEST_weday_metric1_2017-11-01.pkl"))
     model2 = joblib.load(os.path.join('app', 'static', 'models', "pred_model_atus_FULLEST_weday_metric2_2017-11-01.pkl"))
-    #model3 = joblib.load(os.path.join('app', 'static', 'models', "pred_model_atus_FULLEST_weday_metric3_2017-11-01.pkl"))
+    model3 = joblib.load(os.path.join('app', 'static', 'models', "pred_model_atus_FULLEST_weday_metric3_2017-11-02.pkl"))
     model4 = joblib.load(os.path.join('app', 'static', 'models', "pred_model_atus_FULLEST_weday_metric4_2017-11-01.pkl"))
-
 
     predictions[0] = model1.predict(demo_input_df)[0]
     predictions[1] = model2.predict(demo_input_df)[0]
-    #predictions[2] = model3.predict(demo_input_df)[0]
+    predictions[2] = model3.predict(demo_input_df)[0]
     predictions[3] = model4.predict(demo_input_df)[0]
 
     return predictions

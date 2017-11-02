@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Work-Life Predictive Models">
+    <meta name="description" content="Work-Life Balance Prediction">
     <meta name="author" content="Jeremy Smith">
 
     <title>Work-Life Predictive Models</title>
@@ -85,7 +85,12 @@
 
           <div class="well">
             <h3>Predicted metric scores</h3>
-            <div id="predictionVals"></div>
+            <div id="predictionVals">
+              <p>Metric 1: {{ prediction[0] }}</p>
+              <p>Metric 2: {{ prediction[1] }}</p>
+              <p>Metric 3: {{ prediction[2] }}</p>
+              <p>Metric 4: {{ prediction[3] }}</p>
+            </div>
           </div>
 
         </div>

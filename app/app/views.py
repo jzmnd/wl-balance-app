@@ -43,6 +43,7 @@ def model(demoinfo=None):
         css_resources = INLINE.render_css()
         html = render_template('model-plots.html', codedicts=CODEDICTS,
                                js_resources=js_resources, css_resources=css_resources,
+                               prediction=prediction,
                                plot_script1=plot_weday[0][0], plot_div1=plot_weday[0][1],
                                plot_script2=plot_weday[1][0], plot_div2=plot_weday[1][1],
                                plot_script3=plot_weday[2][0], plot_div3=plot_weday[2][1],
