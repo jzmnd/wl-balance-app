@@ -12,7 +12,8 @@ RUN pip install -qr /tmp/requirements.txt
 ADD ./app /opt/app/
 WORKDIR /opt/app
 
-# Install scientific dependencies.
+# Install scientific dependencies
+RUN conda install numpy=1.13.1
 RUN conda install pandas=0.20.3
 RUN conda install scikit-learn=0.19.0
 

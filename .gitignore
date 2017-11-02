@@ -36,4 +36,4 @@ wheels/
 tests/
 
 # Config
-config
+config.yml
