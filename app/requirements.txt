@@ -2,4 +2,4 @@ gunicorn==19.3.0
 requests==2.9.1
 Flask==0.12.2
 bokeh==0.12.6
-simplejson==3.11.1
+wsgiref==0.1.2

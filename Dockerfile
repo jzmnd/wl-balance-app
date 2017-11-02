@@ -1,10 +1,14 @@
 FROM continuumio/miniconda
 
-WORKDIR /app
-
 # Grab requirements.txt.
 COPY . /app
-RUN pip install -r /app/requirements.txt
+# RUN pip install -qr /app/requirements.txt
+
+# Grab requirements.txt.
+ADD ./app/requirements.txt /tmp/requirements.txt
+
+# Install dependencies
+RUN pip install -qr /tmp/requirements.txt
 
 # Disable Intel optimizations (takes a lot of extra space).
 RUN conda install nomkl
