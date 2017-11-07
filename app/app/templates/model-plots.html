@@ -50,17 +50,17 @@
   <h4>Predicted metric scores and classes</h4>
   <div id="predictionVals">
     <div class="row">
-      <div class="col-sm-3">
-        <p><b>Metric 1:</b> {{ prediction[0] }}</p>
-        <p><b>Metric 2:</b> {{ prediction[1] }}</p>
+      <div class="col-sm-4">
+        <p><b>Life vs Paid Work Score:</b> {{ prediction[0] }}</p>
+        <p><b>Life vs Unpaid Work Score:</b> {{ prediction[1] }}</p>
       </div>
-      <div class="col-sm-3">
-        <p><b>Metric 3:</b> {{ prediction[2] }}</p>
-        <p><b>Metric 4:</b> {{ prediction[3] }}</p>
+      <div class="col-sm-4">
+        <p><b>Personal Care/Sleep Time:</b> {{ prediction[2] }}</p>
+        <p><b>Leisure/Socializing Time:</b> {{ prediction[3] }}</p>
       </div>
-      <div class="col-sm-3">
-        <p><b>Metric 5:</b> {{ prediction[4] }}</p>
-        <p><b>Metric 6:</b> {{ prediction[5] }}</p>
+      <div class="col-sm-4">
+        <p><b>More than 9 hours of paid work?:</b> {{ prediction[4] }}</p>
+        <p><b>More than 4 hours of unpaid work?:</b> {{ prediction[5] }}</p>
       </div>
     </div>
   </div>
