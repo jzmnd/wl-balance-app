@@ -1,113 +1,76 @@
-<!DOCTYPE html>
-<html lang='en'>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Work-Life Balance Prediction">
-    <meta name="author" content="Jeremy Smith">
+{% extends "layout.html" %}
+{% block title %}Predictive Modeling{% endblock %}
 
-    <title>Work-Life Predictive Models</title>
+{% block head %}
+<!-- Bokeh resources -->
+{{ js_resources|indent(4)|safe }}
+{{ css_resources|indent(4)|safe }}
+{% endblock %}
 
-    <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <!-- Custom CSS and fonts-->
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles/style.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles/d3style.css') }}">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Arimo">
-    <!-- Bokeh resources -->
-    {{ js_resources|indent(4)|safe }}
-    {{ css_resources|indent(4)|safe }}
+{% block navlist %}
+<li><a href="{{ url_for('index') }}">Home</a></li>
+<li><a href="{{ url_for('metrics') }}">Metrics</a></li>
+<li><a href="{{ url_for('background') }}">Background</a></li>
+<li><a href="{{ url_for('cluster') }}">Clustering Activities</a></li>
+<li class="active"><a href="#">Model Prediction</a></li>
+<li><a href="{{ url_for('about') }}">About</a></li>
+{% endblock %}
 
-  </head>
+{% block content %}
+<div class="well">
+  <h2>Predictive Modeling of Activity Times</h2>
+  <h4>Jeremy Smith</h4>
+  <p>
+    Machine learning can be used to build a predictive model for the work-life balance metrics.
+    Here we use a combination of Linear Ridge regression and a Random Forest regressor to predict the scores for the continuous metrics and an SVM classifier for the categorical metrics.
+  </p>
+  <p>
+    The inputs to the models are 16 demographic indicators such as age, occupation, location, household information etc.
+  </p>
+</div>
 
-  <body>
-    <nav class="navbar navbar-inverse visible-xs">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>                        
-          </button>
-        </div>
-        <div class="collapse navbar-collapse" id="myNavbar">
-          <ul class="nav navbar-nav">
-            <li><a href="{{ url_for('index') }}">Home</a></li>
-            <li><a href="{{ url_for('background') }}">Background</a></li>
-            <li><a href="{{ url_for('cluster') }}">Clustering Activities</a></li>
-            <li class="active"><a href="#">Model Prediction</a></li>
-            <li><a href="{{ url_for('about') }}">About</a></li>
-          </ul>
-        </div>
+<a href="{{ url_for('model') }}" class="btn btn-info" role="button">Return</a>
+
+<div class="pltcontainer">
+  <div id="metric1Plot">
+    {{ plot_div1|indent(12)|safe }}
+  </div>
+  <div id="metric2Plot">
+    {{ plot_div2|indent(12)|safe }}
+  </div>
+  <div id="metric3Plot">
+    {{ plot_div3|indent(12)|safe }}
+  </div>
+  <div id="metric4Plot">
+    {{ plot_div4|indent(12)|safe }}
+  </div>
+</div>
+
+<div class="well">
+  <h4>Predicted metric scores and classes</h4>
+  <div id="predictionVals">
+    <div class="row">
+      <div class="col-sm-3">
+        <p><b>Metric 1:</b> {{ prediction[0] }}</p>
+        <p><b>Metric 2:</b> {{ prediction[1] }}</p>
       </div>
-    </nav>
-
-    <div class="container-fluid">
-      <div class="row content">
-        <div class="col-sm-2 sidenav hidden-xs">
-          <ul class="nav nav-pills nav-stacked">
-            <li><a href="{{ url_for('index') }}">Home</a></li>
-            <li><a href="{{ url_for('background') }}">Background</a></li>
-            <li><a href="{{ url_for('cluster') }}">Clustering Activities</a></li>
-            <li class="active"><a href="#">Model Prediction</a></li>
-            <li><a href="{{ url_for('about') }}">About</a></li>
-          </ul><br>
-        </div>
-        <br>
-        
-        <div class="col-sm-10">
-          <div class="well">
-            <h2>Predictive Modeling of Activity Times</h2>
-            <h4>Jeremy Smith</h4>
-            <p>
-              Machine learning can be used to build a predictive model for work-life balance metrics.
-              Here we use a combination of linear Ridge regression and a Random Forest regressor to predict the scores for the continuous metrics and an SVM classifier for the categorical metrics.
-              The input to the model are 16 demographic indicators such as age, occupation etc.
-            </p>
-          </div>
-
-          <a href="{{ url_for('model') }}" class="btn btn-info" role="button">Return</a>
-
-          <div class="pltcontainer">
-            <div id="metric1Plot">
-              {{ plot_div1|indent(12)|safe }}
-            </div>
-            <div id="metric2Plot">
-              {{ plot_div2|indent(12)|safe }}
-            </div>
-            <div id="metric3Plot">
-              {{ plot_div3|indent(12)|safe }}
-            </div>
-            <div id="metric4Plot">
-              {{ plot_div4|indent(12)|safe }}
-            </div>
-          </div>
-
-          <div class="well">
-            <h3>Predicted metric scores</h3>
-            <div id="predictionVals">
-              <p>Metric 1: {{ prediction[0] }}</p>
-              <p>Metric 2: {{ prediction[1] }}</p>
-              <p>Metric 3: {{ prediction[2] }}</p>
-              <p>Metric 4: {{ prediction[3] }}</p>
-            </div>
-          </div>
-
-        </div>
+      <div class="col-sm-3">
+        <p><b>Metric 3:</b> {{ prediction[2] }}</p>
+        <p><b>Metric 4:</b> {{ prediction[3] }}</p>
+      </div>
+      <div class="col-sm-3">
+        <p><b>Metric 5:</b>  </p>
+        <p><b>Metric 6:</b>  </p>
       </div>
     </div>
+  </div>
+</div>
+{% endblock %}
 
-    <!-- Bootstrap and jQuery core JavaScript -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <!-- d3 JS -->
-    <script src="https://d3js.org/d3.v4.min.js"></script>
-    <!-- Main JS -->
-    <script src="{{ url_for('static', filename='main.js') }}"></script>
-    <!-- Bokeh JS for individual plots -->
-    {{ plot_script1|indent(4)|safe }}
-    {{ plot_script2|indent(4)|safe }}
-    {{ plot_script3|indent(4)|safe }}
-    {{ plot_script4|indent(4)|safe }}
-  </body>
-</html>
+{% block otherscripts %}
+<!-- Bokeh JS for individual plots -->
+{{ plot_script1|indent(4)|safe }}
+{{ plot_script2|indent(4)|safe }}
+{{ plot_script3|indent(4)|safe }}
+{{ plot_script4|indent(4)|safe }}
+{% endblock %}

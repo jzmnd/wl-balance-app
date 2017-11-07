@@ -1,154 +1,49 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Work-Life Balance Prediction">
-    <meta name="author" content="Jeremy Smith">
+{% extends "layout.html" %}
+{% block title %}Home{% endblock %}
 
-    <title>Work-Life Balance Prediction App</title>
+{% block navlist %}
+<li class="active"><a href="#">Home</a></li>
+<li><a href="{{ url_for('metrics') }}">Metrics</a></li>
+<li><a href="{{ url_for('background') }}">Background</a></li>
+<li><a href="{{ url_for('cluster') }}">Clustering Activities</a></li>
+<li><a href="{{ url_for('model') }}">Model Prediction</a></li>
+<li><a href="{{ url_for('about') }}">About</a></li>
+{% endblock %}
 
-    <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <!-- Custom CSS and fonts-->
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles/style.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles/d3style.css') }}">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Arimo">
-  
-  </head>
+{% block content %}
+<div class="well">
+  <h1>
+    "Can we predict a person's work-life balance tendencies from their demographic information?"
+  </h1>
+</div>
 
-  <body>
-    <nav class="navbar navbar-inverse visible-xs">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>                        
-          </button>
-        </div>
-        <div class="collapse navbar-collapse" id="myNavbar">
-          <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home</a></li>
-            <li><a href="{{ url_for('background') }}">Background</a></li>
-            <li><a href="{{ url_for('cluster') }}">Clustering Activities</a></li>
-            <li><a href="{{ url_for('model') }}">Model Prediction</a></li>
-            <li><a href="{{ url_for('about') }}">About</a></li>
-          </ul>
-        </div>
+<div class="well">
+  <h2>Work-Life Balance Prediction Project</h2>
+  <h4>Jeremy Smith</h4>
+  <p>
+    Work-life balance is inherently linked to stress and stress related illness, as well as a lack of human productivity.
+    Therefore the ability to predict a person's propensity to overwork or have a lack of leisure or self-care time etc. is very important.
+    The healthcare industry already uses patient categorization to offer better tailored health services and more personalized care.
+    The addition of work-life balance metrics to this would be extremely useful for improving this categorization.
+  </p>
+</div>
+
+<div class="well">
+  <div class="centered">
+    <div class="row">
+      <div class="col-sm-4">
+        <img src="{{ url_for('static', filename='images/balance.jpg') }}" class="img-rounded" width="100%"/>
       </div>
-    </nav>
-
-    <div class="container-fluid">
-      <div class="row content">
-        <div class="col-sm-2 sidenav hidden-xs">
-          <ul class="nav nav-pills nav-stacked">
-            <li class="active"><a href="#">Home</a></li>
-            <li><a href="{{ url_for('background') }}">Background</a></li>
-            <li><a href="{{ url_for('cluster') }}">Clustering Activities</a></li>
-            <li><a href="{{ url_for('model') }}">Model Prediction</a></li>
-            <li><a href="{{ url_for('about') }}">About</a></li>
-          </ul><br>
-        </div>
-        <br>
-        
-        <div class="col-sm-10">
-          <div class="well">
-            <h2>Work-Life Balance Prediction Project</h2>
-            <h4>Jeremy Smith</h4>
-            <p>
-              Work-life balance is inherently linked to stress and stress related illness, as well as a lack of human productivity.
-              Therefore the ability to predict a person's propensity to overwork or have a lack of leisure or self-care time etc. is very important.
-              The healthcare industry already uses patient categorization to offer better tailored health services and more personalized care.
-              The addition of work-life balance metrics to this would be extremely useful for improvng this categorization.
-            </p>
-          </div>
-
-          <div class="well">
-            <p>
-              How do we define work life balance? I have chosen 5 metrics that can be easily calculated from activity times that give an indication of a person's work life balance. The first 3 are scores - the higher the better. The last two classify groups by a daily cut-off time, first for paid work and second for unpaid work (e.g. housework, childcare).
-            </p>
-          </div>
-
-          <div class="row equal">
-            <div class="col-sm-4">
-              <div class="well">
-                <h3>Metric 1</h3>
-                <p>
-                  <em>Weighted difference between "life actvities" and "paid work activities".</em><br />
-                  This metric is based on several key activity times related to work-life balance and scaled to be a score between 0 and 1.
-                </p>
-              </div>
-            </div>
-            <div class="col-sm-4">
-              <div class="well">
-                <h3>Metric 2</h3>
-                <p>
-                  <em>Weighted difference between "life actvities" and "unpaid work activities".</em><br />
-                  As for Metric 1 but with unpaid rather than paid work activities.
-                </p>
-              </div>
-            </div>
-            <div class="col-sm-4">
-              <div class="well">
-                <h3>Metric 3</h3>
-                <p>
-                  <em>Percentage of day spent on Personal Care.</em><br />
-                  Here we simply calculate the time spent on personal care activities (including sleep) as a percentage of the day.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div class="row equal">
-            <div class="col-sm-4">
-              <div class="well">
-                <h3>Metric 4</h3>
-                <p>
-                  <em>Percentage of day spent on Leisure/Socializing.</em><br />
-                  Here we simply calculate time spent on leisure, social or relaxation activities as a percentage of the day.
-                </p>
-              </div>
-            </div>
-            <div class="col-sm-4">
-              <div class="well">
-                <h3>Metric 5</h3>
-                <p>
-                  <em>More than 9 hours of work in the day?</em><br />
-                  This categorizes a respondent by whether they work a "long" day or not.
-                </p>
-              </div>
-            </div>
-            <div class="col-sm-4">
-              <div class="well">
-                <h3>Metric 6</h3>
-                <p>
-                  <em>More than 4 hours of unpaid work in the day?</em><br />
-                  This categorizes a respondent by whether they spend a significant amount of time on childcare, housework etc.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div class="well">
-            <p>
-              <small>
-                All data is from the <a href="https://www.bls.gov/tus/">American Time Use Survey (ATUS)</a> that is published by the <a href="https://www.bls.gov/">US Bureau for Labor Statistics</a>. Daily activity times for respondents between 2003 and 2015.
-              </small>
-            </p>
-          </div>      
-
-        </div>
+      <div class="col-sm-8">
+        <h4>Problem</h4>
+        <p>Poor work-life balance has been correlated to stress-related illness<p>
+        <h4>User</h4>
+        <p>Healthcare Industries<br>e.g. hospitals, care providers, ACOs, insurance providers</p>
+        <h4>Goal</h4>
+        <p>To categorize customers and patients into risk groups
+        <br>Use those categories to provide tailored health care</p>
       </div>
     </div>
-
-    <!-- Bootstrap and jQuery core JavaScript -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <!-- d3 JS -->
-    <script src="https://d3js.org/d3.v4.min.js"></script>
-    <!-- Custom JS -->
-    <script src="{{ url_for('static', filename='main.js') }}"></script>
-
-  </body>
-</html>
+  </div>
+</div>     
+{% endblock %}

@@ -1,0 +1,119 @@
+{% extends "layout.html" %}
+{% block title %}Metrics{% endblock %}
+
+{% block navlist %}
+<li><a href="{{ url_for('index') }}">Home</a></li>
+<li class="active"><a href="#">Metrics</a></li>
+<li><a href="{{ url_for('background') }}">Background</a></li>
+<li><a href="{{ url_for('cluster') }}">Clustering Activities</a></li>
+<li><a href="{{ url_for('model') }}">Model Prediction</a></li>
+<li><a href="{{ url_for('about') }}">About</a></li>
+{% endblock %}
+
+{% block content %}
+<div class="well">
+  <h2>How Do We Measure Work Life Balance?</h2>
+  <h4>Jeremy Smith</h4>
+  <p>
+    We need to define some suitable metrics for work-life balance. I have chosen 5 metrics that can be easily calculated from activity times that give an indication of a person's work-life balance. The first 3 are scores - the higher the better. The last two classify groups by a daily cut-off time, first for paid work and second for unpaid work (e.g. housework, childcare).
+  </p>
+</div>
+
+<div class="well">
+  <h4>Example Activities</h4>
+  <p>
+    First, here are some examples of different daily activities divided into work-life categories.
+  </p>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Life</th>
+        <th>Work ("paid")</th>
+        <th>Work ("unpaid")</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <p>Sleeping</p>
+          <p>Health-Related Self-Care</p>
+          <p>Eating and Drinking</p>
+          <p>Socializing and Communicating</p>
+          <p>Relaxing and Leisure</p>
+        </td>
+        <td>
+          <p>Working</p>
+          <p>Job Search and Interviewing</p>
+          <p>Travel Related to Work</p>
+        </td>
+        <td>
+          <p>Housework</p>
+          <p>Household Management</p>
+          <p>House Maintenance</p>
+          <p>Caring For and Helping Children</p>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="row equal">
+  <div class="col-sm-4">
+    <div class="well">
+      <h4>Metric 1</h4>
+      <p>
+        <em>Weighted difference between "life activities" and "paid work activities".</em><br />
+        This metric is based on several key activity times related to work-life balance and scaled to be a score between 0 and 1.
+      </p>
+    </div>
+  </div>
+  <div class="col-sm-4">
+    <div class="well">
+      <h4>Metric 2</h4>
+      <p>
+        <em>Weighted difference between "life activities" and "unpaid work activities".</em><br />
+        As for Metric 1 but with unpaid rather than paid work activities.
+      </p>
+    </div>
+  </div>
+  <div class="col-sm-4">
+    <div class="well">
+      <h4>Metric 3</h4>
+      <p>
+        <em>Percentage of day spent on Personal Care.</em><br />
+        Here we simply calculate the time spent on personal care activities (including sleep) as a percentage of the day.
+      </p>
+    </div>
+  </div>
+</div>
+
+<div class="row equal">
+  <div class="col-sm-4">
+    <div class="well">
+      <h4>Metric 4</h4>
+      <p>
+        <em>Percentage of day spent on Leisure/Socializing.</em><br />
+        Here we simply calculate time spent on leisure, social or relaxation activities as a percentage of the day.
+      </p>
+    </div>
+  </div>
+  <div class="col-sm-4">
+    <div class="well">
+      <h4>Metric 5</h4>
+      <p>
+        <em>More than 9 hours of work in the day?</em><br />
+        This categorizes a respondent by whether they work a "long" day or not.
+      </p>
+    </div>
+  </div>
+  <div class="col-sm-4">
+    <div class="well">
+      <h4>Metric 6</h4>
+      <p>
+        <em>More than 4 hours of unpaid work in the day?</em><br />
+        This categorizes a respondent by whether they spend a significant amount of time on childcare, housework etc.
+      </p>
+    </div>
+  </div>
+</div>
+{% endblock %}

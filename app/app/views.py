@@ -18,15 +18,21 @@ def index():
     return html
 
 
-@app.route('/cluster')
-def cluster():
-    html = render_template('cluster.html')
-    return html
-
-
 @app.route('/background')
 def background():
     html = render_template('background.html')
+    return html
+
+
+@app.route('/metrics')
+def metrics():
+    html = render_template('metrics.html')
+    return html
+
+
+@app.route('/cluster')
+def cluster():
+    html = render_template('cluster.html')
     return html
 
 

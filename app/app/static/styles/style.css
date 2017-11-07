@@ -4,12 +4,17 @@ body {
   color: #555;
 }
 
+h1 {
+  text-align: center;
+}
+
 h4 {
   color: #aaa;
 }
 
-.row.content {
-    height: 550px;
+.centered {
+  text-align: center;
+  font-size: 120%;
 }
 
 .sidenav {

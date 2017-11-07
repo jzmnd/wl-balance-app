@@ -79,7 +79,10 @@ def predictScore(demo_input, n=6):
     """Get the predicted scores from the sklearn models"""
     predictions = [0.5, 0.5, 0.5, 0.5, False, False]
 
-    demo_input_u = {key.upper(): float(val) for key, val in demo_input.items()}
+    try:
+        demo_input_u = {key.upper(): float(val) for key, val in demo_input.items()}
+    except ValueError:
+        return predictions
     demo_input_df = pd.DataFrame(data=demo_input_u, index=[0], dtype=float)
 
     model1 = joblib.load(os.path.join('app', 'static', 'models', "pred_model_atus_FULLEST_weday_metric1_2017-11-01.pkl"))
@@ -87,9 +90,9 @@ def predictScore(demo_input, n=6):
     model3 = joblib.load(os.path.join('app', 'static', 'models', "pred_model_atus_FULLEST_weday_metric3_2017-11-02.pkl"))
     model4 = joblib.load(os.path.join('app', 'static', 'models', "pred_model_atus_FULLEST_weday_metric4_2017-11-01.pkl"))
 
-    predictions[0] = model1.predict(demo_input_df)[0]
-    predictions[1] = model2.predict(demo_input_df)[0]
-    predictions[2] = model3.predict(demo_input_df)[0]
-    predictions[3] = model4.predict(demo_input_df)[0]
+    predictions[0] = round(model1.predict(demo_input_df)[0], 3)
+    predictions[1] = round(model2.predict(demo_input_df)[0], 3)
+    predictions[2] = round(model3.predict(demo_input_df)[0], 3)
+    predictions[3] = round(model4.predict(demo_input_df)[0], 3)
 
     return predictions
