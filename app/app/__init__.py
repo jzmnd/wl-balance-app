@@ -7,9 +7,11 @@ Created by Jeremy Smith on 2017-10-04
 
 from flask import Flask
 
+# Create flask app
 app = Flask(__name__)
 
-# Configurations
+# Set configurations
 app.config.from_object('config')
 
+# Import views
 from app import views

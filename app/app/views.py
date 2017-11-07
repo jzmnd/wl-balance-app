@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """
-views.py for W-L balance prediction app
+views.py
+Views for W-L balance prediction app
 
 Created by Jeremy Smith on 2017-10-30
 """
@@ -18,15 +19,15 @@ def index():
     return html
 
 
-@app.route('/background')
-def background():
-    html = render_template('background.html')
-    return html
-
-
 @app.route('/metrics')
 def metrics():
     html = render_template('metrics.html')
+    return html
+
+
+@app.route('/background')
+def background():
+    html = render_template('background.html')
     return html
 
 
@@ -42,7 +43,7 @@ def model(demoinfo=None):
 
     if demoinfo:
         demo_input = request.args
-        prediction = predictScore(demo_input)
+        prediction = predictScore(demo_input, dec=3)
         plot_weday, plot_wehol = multiPlotOutput(prediction, namedict=METRICNAMES)
 
         js_resources = INLINE.render_js()

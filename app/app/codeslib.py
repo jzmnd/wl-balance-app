@@ -1,41 +1,13 @@
 # -*- coding: utf-8 -*-
 """
 codeslib.py
-Library for code tables
+Library for loading code tables and dictionaries
 
 Created by Jeremy Smith on 2017-10-04
 """
 
 import os
 import pandas as pd
-
-METRICNAMES = {1: "Weighted difference between life actvities and paid work activities",
-               2: "Weighted difference between life actvities and unpaid work activities",
-               3: "Percentage of day spent on personal care",
-               4: "Percentage of day spent on leisure/socializing",
-               5: "More than 9 hours of work in the day?",
-               6: "More than 4 hours of unpaid work in the day?"}
-
-FEATURES = ['TEAGE', 'TESEX', 'GEMETSTA', 'GESTFIPS',
-            'TELFS', 'TRDPFTPT',
-            'TRSPPRES', 'TESPEMPNOT',
-            'TESCHENR', 'TESCHLVL', 'PEEDUCA',
-            'PTDTRACE',
-            'TRCHILDNUM', 'TRNUMHOU',
-            'TRMJOCGR', 'TRDTOCC1',
-            'TRMJIND1', 'TEIO1COW', 'TRERNWA',
-            'TUDIS']
-
-CATFEATURES = ['GEMETSTA', 'GESTFIPS',
-               'TELFS', 'TRDPFTPT',
-               'TRSPPRES', 'TESPEMPNOT',
-               'TESCHENR', 'TESCHLVL',
-               'PTDTRACE',
-               'TRMJOCGR', 'TRDTOCC1',
-               'TRMJIND1', 'TEIO1COW',
-               'TUDIS']
-
-NUMCATS = [4, 57, 6, 3, 4, 3, 3, 3, 27, 7, 23, 14, 9, 4]
 
 
 def load_codes(loc, loc_codes="code_tables"):
@@ -94,11 +66,15 @@ def load_codes(loc, loc_codes="code_tables"):
                              sep=';',
                              dtype={'CODE': str, 'NAME': str, 'NAME2012': str})
 
+
     # Import location (state) code dictionary csv to df
     dfloccodes = pd.read_csv(os.path.join(loc, loc_codes, "state_codes.csv"),
                              index_col=False,
                              sep=';',
-                             dtype={'CODE': str, 'NAME': str})
+                             dtype={'CODE': str, 'NAME': str,
+                                    'LONGNAME': str, 'ABV': str, 'SLUG': str,
+                                    'LATITUDE': float, 'LONGITUDE': float,
+                                    'POPULATION': float, 'AREA': float})
 
     # Import "who activity is performed with" code dictionary csv to df
     dfwhocodes = pd.read_csv(os.path.join(loc, loc_codes, "who_codes.csv"),
@@ -116,13 +92,43 @@ def load_codes(loc, loc_codes="code_tables"):
             dfindcodes, dfraccodes, dfloccodes, dfwhocodes, dfdemocodes]
 
 
-# Create code dictionaries
-dfactcodes, dfeducodes, dfinccodes, dfagecodes, dfempcodes, \
-    dfindcodes, dfraccodes, dfloccodes, dfwhocodes, dfdemocodes = load_codes("app/static/data")
+# Create metric names dictionary
+METRICNAMES = {1: "Weighted difference between life actvities and paid work activities",
+               2: "Weighted difference between life actvities and unpaid work activities",
+               3: "Percentage of day spent on personal care",
+               4: "Percentage of day spent on leisure/socializing",
+               5: "More than 9 hours of work in the day?",
+               6: "More than 4 hours of unpaid work in the day?"}
 
+# Create feature columns lists
+FEATURES = ['TEAGE', 'TESEX', 'GEMETSTA',
+            'GESTFIPS', 'LATITUDE', 'LONGITUDE',
+            'TELFS', 'TRDPFTPT',
+            'TRSPPRES', 'TESPEMPNOT',
+            'TESCHENR', 'PEEDUCA',
+            'PTDTRACE',
+            'TRCHILDNUM', 'TRNUMHOU',
+            'TRDTOCC1', 'TEIO1COW', 'TRERNWA']
+
+# Subset of features that are categorical
+CATFEATURES = ['GEMETSTA', 'GESTFIPS',
+               'TELFS', 'TRDPFTPT',
+               'TRSPPRES', 'TESPEMPNOT',
+               'TESCHENR',
+               'PTDTRACE',
+               'TRDTOCC1', 'TEIO1COW']
+
+# Load data and code tables
+dfactcodes, dfeducodes, dfinccodes, dfagecodes, dfempcodes, \
+    dfindcodes, dfraccodes, dfloccodes, dfwhocodes, dfdemocodes = load_codes(os.path.join("app", "static", "data"))
+
+# Create code dictionaries
 CODEDICTS = {}
 CODEDICTS['ptdtrace'] = [{'name': n, 'value': v} for n, v in zip(dfraccodes.NAME.tolist()[:-5], dfraccodes.CODE.tolist()[:-5])]
 CODEDICTS['gestfips'] = [{'name': n, 'value': v} for n, v in zip(dfloccodes.NAME.tolist(), dfloccodes.CODE.tolist())]
+CODEDICTS['latilong'] = [{'code': n, 'value': (lat, lon)} for n, lat, lon in zip(dfloccodes.CODE.tolist(),
+                                                                                 dfloccodes.LATITUDE.tolist(),
+                                                                                 dfloccodes.LONGITUDE.tolist())]
 CODEDICTS['telfs'] =    [{'name': n, 'value': v} for n, v in zip(dfempcodes.NAME.tolist(), dfempcodes.CODE.tolist())]
 CODEDICTS['trdtocc1'] = [{'name': n, 'value': v} for n, v in zip(dfindcodes[dfindcodes.FLAG == 'TRDTOCC1'].NAME.tolist(),
                                                                  dfindcodes[dfindcodes.FLAG == 'TRDTOCC1'].CODE.tolist())]

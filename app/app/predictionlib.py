@@ -13,6 +13,7 @@ from bokeh.embed import components
 import numpy as np
 import pandas as pd
 from sklearn.externals import joblib
+from codeslib import CODEDICTS
 from modellib import compute_mse, BaseResEnsembleEstimator, DataFrameSelector, EstimatorTransformer, ImputeNumber
 
 # Requred to unpickle modellib
@@ -60,6 +61,7 @@ def multiPlotOutput(prediction, namedict=None, n=4):
     plot_wehol = []
     metric_data_weday, metric_data_wehol = getData()
 
+    # Plot each metric from 1 to n
     for i in xrange(n):
         fig_weday = histogramPlot(metric_data_weday['metric{}'.format(i + 1)],
                                   title="Metric {} - {}".format(i + 1, namedict[i + 1]),
@@ -69,30 +71,45 @@ def multiPlotOutput(prediction, namedict=None, n=4):
                                   title="Metric {} - {}".format(i + 1, namedict[i + 1]),
                                   bins=50, prediction=prediction[i])
 
+        # Append to plot components list
         plot_weday.append(components(fig_weday))
         plot_wehol.append(components(fig_wehol))
 
     return plot_weday, plot_wehol
 
 
-def predictScore(demo_input, n=6):
+def predictScore(demo_input, n=6, dec=3):
     """Get the predicted scores from the sklearn models"""
-    predictions = [0.5, 0.5, 0.5, 0.5, False, False]
+    predictions = [0.5, 0.5, 0.5, 0.5, 'No', 'No']
 
+    # Convert response to dictionary
     try:
         demo_input_u = {key.upper(): float(val) for key, val in demo_input.items()}
     except ValueError:
         return predictions
+
+    # Add latitude-longitude from gestfips
+    lat, lon = filter(lambda x: x['code'] == str(int(demo_input_u['GESTFIPS'])), CODEDICTS['latilong'])[0]['value']
+    demo_input_u['LATITUDE'] = lat
+    demo_input_u['LONGITUDE'] = lon
+
+    # Convert to a single row dataframe to be read by model
     demo_input_df = pd.DataFrame(data=demo_input_u, index=[0], dtype=float)
 
-    model1 = joblib.load(os.path.join('app', 'static', 'models', "pred_model_atus_FULLEST_weday_metric1_2017-11-01.pkl"))
-    model2 = joblib.load(os.path.join('app', 'static', 'models', "pred_model_atus_FULLEST_weday_metric2_2017-11-01.pkl"))
-    model3 = joblib.load(os.path.join('app', 'static', 'models', "pred_model_atus_FULLEST_weday_metric3_2017-11-02.pkl"))
-    model4 = joblib.load(os.path.join('app', 'static', 'models', "pred_model_atus_FULLEST_weday_metric4_2017-11-01.pkl"))
+    # Load the sklearn models from pickle files
+    model1 = joblib.load(os.path.join('app', 'static', 'models', "pred_model_atus_FULLEST_weday_metric1_2017-11-07.pkl"))
+    model2 = joblib.load(os.path.join('app', 'static', 'models', "pred_model_atus_FULLEST_weday_metric2_2017-11-07.pkl"))
+    model3 = joblib.load(os.path.join('app', 'static', 'models', "pred_model_atus_FULLEST_weday_metric3_2017-11-07.pkl"))
+    model4 = joblib.load(os.path.join('app', 'static', 'models', "pred_model_atus_FULLEST_weday_metric4_2017-11-07.pkl"))
+    model5 = joblib.load(os.path.join('app', 'static', 'models', "pred_model_atus_CLASS_FULLEST_weday_metric5_2017-11-07.pkl"))
+    model6 = joblib.load(os.path.join('app', 'static', 'models', "pred_model_atus_CLASS_FULLEST_weday_metric6_2017-11-07.pkl"))
 
-    predictions[0] = round(model1.predict(demo_input_df)[0], 3)
-    predictions[1] = round(model2.predict(demo_input_df)[0], 3)
-    predictions[2] = round(model3.predict(demo_input_df)[0], 3)
-    predictions[3] = round(model4.predict(demo_input_df)[0], 3)
+    # Make predictions
+    predictions[0] = round(model1.predict(demo_input_df)[0], dec)
+    predictions[1] = round(model2.predict(demo_input_df)[0], dec)
+    predictions[2] = round(model3.predict(demo_input_df)[0], dec)
+    predictions[3] = round(model4.predict(demo_input_df)[0], dec)
+    predictions[4] = 'Yes' if model5.predict(demo_input_df)[0] else 'No'
+    predictions[5] = 'Yes' if model6.predict(demo_input_df)[0] else 'No'
 
     return predictions

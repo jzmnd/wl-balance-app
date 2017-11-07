@@ -32,8 +32,5 @@ wheels/
 # DS Store
 .DS_Store
 
-# Data / docs
-tests/
-
-# Config
+# Secret config
 config.yml
