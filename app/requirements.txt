@@ -1,6 +1,6 @@
 gunicorn
-Flask==0.12.2
-requests==2.9.1
+flask>=1.0.0
+requests>=2.20.0
 bokeh==0.12.6
 Jinja2
 Werkzeug
